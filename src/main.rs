@@ -1,3 +1,6 @@
+use chessrs::boards;
+
 fn main() {
-    println!("Hello, world!");
+    let kma = &boards::KNIGHT_MOVE_ARR;
+    println!("{:?}", kma[0]);
 }
