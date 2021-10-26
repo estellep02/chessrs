@@ -1,9 +1,9 @@
-use std::borrow::Cow::Borrowed;
 use std::fmt::Formatter;
 use lazy_static::lazy_static;
 
 lazy_static! {
     pub static ref KNIGHT_MOVE_ARR: Vec<Bitboard> = super::pieces::gen_knight_moves();
+    pub static ref ROOK_PREMOVE_TBL: Vec<Bitboard> = super::pieces::gen_rook_moves();
 }
 
 #[derive(Clone, Copy, Debug, Ord, PartialOrd, Eq, PartialEq)]
@@ -77,12 +77,14 @@ impl Board {
 
 impl std::fmt::Display for Bitboard {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "  ABCDEFGH");
         for i in 0..=7 {
             let shift = (7 - i) * 8;
             let mask = 0xff << shift;
             let bits = ((self.bb & mask) >> shift) as u8;
-            writeln!(f, "{:08b}", bits.reverse_bits())?;
+            writeln!(f, "{}|{:08b}|{}", 8-i, bits.reverse_bits(), 8-i)?;
         }
+        writeln!(f, "  ABCDEFGH");
         Ok(())
     }
 }
