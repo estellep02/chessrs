@@ -4,6 +4,7 @@ use lazy_static::lazy_static;
 lazy_static! {
     pub static ref KNIGHT_MOVE_ARR: Vec<Bitboard> = super::pieces::gen_knight_moves();
     pub static ref ROOK_PREMOVE_TBL: Vec<Bitboard> = super::pieces::gen_rook_moves();
+    pub static ref BISHOP_PREMOVE_TBL: Vec<Bitboard> = super::pieces::gen_bishop_moves();
 }
 
 #[derive(Clone, Copy, Debug, Ord, PartialOrd, Eq, PartialEq)]
