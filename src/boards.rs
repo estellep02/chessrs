@@ -5,6 +5,7 @@ lazy_static! {
     pub static ref KNIGHT_MOVE_ARR: Vec<Bitboard> = super::pieces::gen_knight_moves();
     pub static ref ROOK_PREMOVE_TBL: Vec<Bitboard> = super::pieces::gen_rook_moves();
     pub static ref BISHOP_PREMOVE_TBL: Vec<Bitboard> = super::pieces::gen_bishop_moves();
+    pub static ref QUEEN_PREMOVE_TBL: Vec<Bitboard> = super::pieces::gen_queen_moves();
 }
 
 #[derive(Clone, Copy, Debug, Ord, PartialOrd, Eq, PartialEq)]
@@ -15,6 +16,10 @@ pub struct Bitboard {
 impl Bitboard {
     pub fn new() -> Bitboard {
         Bitboard { bb: 0 }
+    }
+
+    pub fn merge(self, other: Bitboard) -> Bitboard {
+        Bitboard::from(self.bb | other.bb)
     }
 
     pub(crate) fn get_bb(&self) -> u64 {
