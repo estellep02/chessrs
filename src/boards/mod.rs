@@ -1,5 +1,3 @@
-use std::fmt::Formatter;
-use std::ops::{BitAnd, BitOr, BitXor, Not};
 use lazy_static::lazy_static;
 
 mod bitboard;

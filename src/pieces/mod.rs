@@ -1,7 +1,14 @@
+pub use self::bishop::*;
+pub use self::knight::*;
+pub use self::queen::*;
+pub use self::rook::*;
+
+mod pawn;
 mod knight;
-mod rook;
 mod bishop;
+mod rook;
 mod queen;
+mod king;
 
 use crate::boards::Bitboard;
 use crate::mapping::Square;

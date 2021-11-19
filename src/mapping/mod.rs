@@ -1,12 +1,15 @@
-mod square;
-mod rankfile;
+use crate::boards::Bitboard;
 
 pub use self::rankfile::*;
 pub use self::square::*;
 
+mod square;
+mod rankfile;
+
 // LERF mapping
 // A1 = 0, H1 = 7, A8 = 56, H8 = 63
-pub const FIRST_RANK: u64 = 0x00000000000000FF;
-pub const A_FILE: u64 = 0x0101010101010101;
-pub const MAIN_DIAG: u64 = 0x8040201008040201;
-pub const MAIN_ANTIDIAG: u64 = 0x0102040810204080;
+pub const FIRST_RANK: Bitboard = Bitboard::from_u64(0x00_00_00_00_00_00_00_FF);
+pub const A_FILE: Bitboard = Bitboard::from_u64(0x01_01_01_01_01_01_01_01);
+pub const H_FILE: Bitboard = Bitboard::from_u64(0x80_80_80_80_80_80_80_80);
+pub const MAIN_DIAG: Bitboard = Bitboard::from_u64(0x80_40_20_10_08_04_02_01);
+pub const MAIN_ANTIDIAG: Bitboard = Bitboard::from_u64(0x01_02_04_08_10_20_40_80);

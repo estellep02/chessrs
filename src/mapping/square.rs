@@ -107,7 +107,7 @@ impl BitOr<Bitboard> for Square {
     type Output = Bitboard;
 
     fn bitor(self, rhs: Bitboard) -> Self::Output {
-        Bitboard::from(rhs.get_bb() | 1 << (self as u64))
+        Bitboard::from(rhs.bb() | 1 << (self as u64))
     }
 }
 
@@ -123,7 +123,7 @@ impl BitAnd<Bitboard> for Square {
     type Output = Bitboard;
 
     fn bitand(self, rhs: Bitboard) -> Self::Output {
-        Bitboard::from(rhs.get_bb() & 1 << (self as u64))
+        Bitboard::from(rhs.bb() & 1 << (self as u64))
     }
 }
 
@@ -139,7 +139,7 @@ impl BitXor<Bitboard> for Square {
     type Output = Bitboard;
 
     fn bitxor(self, rhs: Bitboard) -> Self::Output {
-        Bitboard::from(rhs.get_bb() ^ 1 << (self as u64))
+        Bitboard::from(rhs.bb() ^ 1 << (self as u64))
     }
 }
 
