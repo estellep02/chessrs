@@ -12,6 +12,6 @@ pub use self::queen::*;
 
 pub fn move_occlusion(move_origin: Square, move_bitboard: Bitboard, occupancy_bitboard: Bitboard) -> Bitboard {
 
-
+    Bitboard::from(0)
 
 }

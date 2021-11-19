@@ -1,3 +1,3 @@
-pub mod boards;
 pub mod pieces;
 pub mod mapping;
+pub mod boards;
