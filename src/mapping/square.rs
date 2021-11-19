@@ -1,9 +1,6 @@
-// LERF mapping
-// A1 = 0, H1 = 7, A8 = 56, H8 = 63
-pub const FIRST_RANK: u64 = 0x00000000000000FF;
-pub const A_FILE: u64 = 0x0101010101010101;
-pub const MAIN_DIAG: u64 = 0x8040201008040201;
-pub const MAIN_ANTIDIAG: u64 = 0x0102040810204080;
+use std::ops::{BitAnd, BitOr, BitXor, Not};
+use crate::boards::Bitboard;
+use crate::mapping::RankFile;
 
 
 #[derive(Copy, Clone, PartialOrd, PartialEq)]
@@ -98,49 +95,66 @@ impl From<u8> for Square {
     }
 }
 
+impl BitOr for Square {
+    type Output = Bitboard;
+
+    fn bitor(self, rhs: Self) -> Self::Output {
+        Bitboard::from(1 << self as u64 | 1 << rhs as u64)
+    }
+}
+
+impl BitOr<Bitboard> for Square {
+    type Output = Bitboard;
+
+    fn bitor(self, rhs: Bitboard) -> Self::Output {
+        Bitboard::from(rhs.get_bb() | 1 << (self as u64))
+    }
+}
+
+impl BitAnd for Square {
+    type Output = Bitboard;
+
+    fn bitand(self, rhs: Self) -> Self::Output {
+        Bitboard::from(1 << self as u64 & 1 << rhs as u64)
+    }
+}
+
+impl BitAnd<Bitboard> for Square {
+    type Output = Bitboard;
+
+    fn bitand(self, rhs: Bitboard) -> Self::Output {
+        Bitboard::from(rhs.get_bb() & 1 << (self as u64))
+    }
+}
+
+impl BitXor for Square {
+    type Output = Bitboard;
+
+    fn bitxor(self, rhs: Self) -> Self::Output {
+        Bitboard::from(1 << self as u64 ^ 1 << rhs as u64)
+    }
+}
+
+impl BitXor<Bitboard> for Square {
+    type Output = Bitboard;
+
+    fn bitxor(self, rhs: Bitboard) -> Self::Output {
+        Bitboard::from(rhs.get_bb() ^ 1 << (self as u64))
+    }
+}
+
+impl Not for Square {
+    type Output = Bitboard;
+
+    fn not(self) -> Self::Output {
+        !Bitboard::from(1 << self as u64)
+    }
+}
+
 impl From<RankFile> for Square {
     fn from(rf: RankFile) -> Self {
         let file_val = rf.file as u8;
         let square_val = 8 * rf.rank + file_val;
         Square::from(square_val)
-    }
-}
-
-pub enum File {
-    A, B, C, D, E, F, G, H
-}
-
-impl From<u8> for File {
-    fn from(file_num: u8) -> Self {
-        match file_num {
-            0 => File::A,
-            1 => File::B,
-            2 => File::C,
-            3 => File::D,
-            4 => File::E,
-            5 => File::F,
-            6 => File::G,
-            7 => File::H,
-            _ => panic!("failed to convert from u8 to File")
-        }
-    }
-}
-
-pub(crate) struct RankFile {
-    pub(crate) rank: u8,
-    pub(crate) file: File
-}
-
-impl From<Square> for RankFile {
-    fn from(square: Square) -> Self {
-        let square_val = square as u8;
-        let file_val = square_val & 7;
-        let rank_val = square_val >> 3;
-
-        let determined_file = File::from(file_val);
-        RankFile {
-            file: determined_file,
-            rank: rank_val,
-        }
     }
 }
