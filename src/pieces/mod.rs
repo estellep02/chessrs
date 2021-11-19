@@ -10,8 +10,8 @@ pub use self::rook::*;
 pub use self::bishop::*;
 pub use self::queen::*;
 
-pub fn move_occlusion(move_origin: Square, move_bitboard: Bitboard, occupancy_bitboard: Bitboard) -> Bitboard {
+pub fn sliding_move_occlusion(move_origin: Square, move_bitboard: Bitboard, w_occ_bb: Bitboard, b_occ_bb: Bitboard) -> Bitboard {
 
-    Bitboard::from(0)
 
+  Bitboard::from(0)
 }
