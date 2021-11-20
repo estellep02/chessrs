@@ -8,7 +8,9 @@ pub use self::chessboard::*;
 
 lazy_static! {
     pub static ref KNIGHT_MOVE_ARR: Vec<Bitboard> = super::pieces::gen_knight_moves();
-    pub static ref ROOK_PREMOVE_TBL: Vec<Bitboard> = super::pieces::gen_rook_moves();
-    pub static ref BISHOP_PREMOVE_TBL: Vec<Bitboard> = super::pieces::gen_bishop_moves();
-    pub static ref QUEEN_PREMOVE_TBL: Vec<Bitboard> = super::pieces::gen_queen_moves();
+    pub static ref KING_MOVE_ARR: Vec<Bitboard> = super::pieces::gen_king_moves();
+    pub static ref RANK_MOVE_ARR: Vec<Bitboard> = super::pieces::gen_rank_moves();
+    pub static ref FILE_MOVE_ARR: Vec<Bitboard> = super::pieces::gen_file_moves();
+    pub static ref DIAG_MOVE_ARR: Vec<Bitboard> = super::pieces::gen_diag_moves();
+    pub static ref ANTI_DIAG_MOVE_ARR: Vec<Bitboard> = super::pieces::gen_anti_diag_moves();
 }
