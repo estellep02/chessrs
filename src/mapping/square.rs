@@ -1,6 +1,5 @@
 use std::ops::{BitAnd, BitOr, BitXor, Not};
 use crate::boards::Bitboard;
-use crate::mapping::RankFile;
 
 
 #[derive(Copy, Clone, PartialOrd, PartialEq)]
@@ -13,6 +12,16 @@ pub enum Square {
     A6, B6, C6, D6, E6, F6, G6, H6,
     A7, B7, C7, D7, E7, F7, G7, H7,
     A8, B8, C8, D8, E8, F8, G8, H8
+}
+
+impl Square {
+    pub fn rank(&self) -> i64 {
+        (*self as i64) >> 3
+    }
+
+    pub fn file(&self) -> i64 {
+        (*self as i64) & 7
+    }
 }
 
 impl From<u8> for Square {
@@ -148,13 +157,5 @@ impl Not for Square {
 
     fn not(self) -> Self::Output {
         !Bitboard::from(1 << self as u64)
-    }
-}
-
-impl From<RankFile> for Square {
-    fn from(rf: RankFile) -> Self {
-        let file_val = rf.file as u8;
-        let square_val = 8 * rf.rank + file_val;
-        Square::from(square_val)
     }
 }
