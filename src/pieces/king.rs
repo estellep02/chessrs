@@ -1,5 +1,6 @@
 use crate::boards::Bitboard;
 use crate::mapping::Square;
+use crate::pieces::bb_from_offsets;
 
 fn king_moves(square: Square) -> Bitboard {
   let mut offsets: Vec<i64> = Vec::new();
@@ -28,10 +29,7 @@ fn king_moves(square: Square) -> Bitboard {
   if square_val % 8 > 0 {                      // not a file
     offsets.push(-1);
   }
-  offsets.iter().fold(Bitboard::new(), |bb, off| {
-    let mask = 1 << (square_val + off);
-    Bitboard::from(bb.bb() | mask)
-  })
+  bb_from_offsets(offsets, square_val)
 }
 
 pub fn gen_king_moves() -> Vec<Bitboard> {
